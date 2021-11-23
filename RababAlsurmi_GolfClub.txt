@@ -1,0 +1,75 @@
+drop database RababAlsurmi;
+create database RababAlsurmi;
+use RababAlsurmi;
+
+create table spelare(
+		personNr char(13),
+        namn varchar(20),
+        ålder char(13),
+        primary key (personNr)
+	)engine=innodb;
+    
+create table jacka(
+		material varchar(20),
+        storlek char(13),
+        initialer char(13),
+        personNr char(13),
+        primary key (personNr, initialer),
+        foreign key (personNr) references spelare(personNr)
+	)engine=innodb;
+    
+
+    
+create table konstruktion(
+		hårdhet varchar(20),
+        serialNr char(13),
+        primary key (serialNr)
+        
+	)engine=innodb;
+    
+create table klubba(
+		material varchar(20),
+        Nr char(13),
+        personNr char(13),
+        serialNr char(13),
+        primary key (personNr, Nr, serialNr),
+        foreign key (personNr) references spelare(personNr),
+        foreign key (serialNr) references konstruktion(serialNr)
+	)engine=innodb;    
+    
+    
+create table tävling(
+		tävlingNamn varchar(20),
+        datum date,
+        primary key (tävlingNamn)
+        
+	)engine=innodb;
+    
+create table delta(
+		tävlingNamn varchar(20),
+        personNr char(13),
+        primary key (tävlingNamn, personNr),
+        foreign key (personNr) references spelare(personNr),
+        foreign key (tävlingNamn) references tävling(tävlingNamn)
+        
+	)engine=innodb;
+    
+create table regen(
+		typ varchar(20),
+        vindStyrka char(13),
+        primary key (typ)
+        
+	)engine=innodb;
+    
+create table har(
+		tidPunkt time,
+		tävlingNamn varchar(20),
+        typ varchar(20),
+        primary key (tävlingNamn, typ),
+        foreign key (typ) references regen(typ),
+        foreign key (tävlingNamn) references tävling(tävlingNamn)
+        
+	)engine=innodb;
+    
+        
+        
