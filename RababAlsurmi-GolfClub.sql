@@ -16,6 +16,7 @@ create table jacka(
         personNr char(13) NOT NULL default '',
         primary key (personNr, initialer),
         foreign key (personNr) references spelare(personNr)
+        ON DELETE CASCADE
 	)engine=innodb;
     
 
@@ -33,8 +34,9 @@ create table klubba(
         personNr char(13) NOT NULL default '',
         serialNr char(13) NOT NULL default '',
         primary key (personNr, Nr, serialNr),
-        foreign key (personNr) references spelare(personNr),
+        foreign key (personNr) references spelare(personNr) ON DELETE CASCADE,
         foreign key (serialNr) references konstruktion(serialNr)
+        ON DELETE CASCADE
 	)engine=innodb;    
     
     
@@ -49,8 +51,9 @@ create table delta(
 		tävlingNamn varchar(20) NOT NULL default '',
         personNr char(13) NOT NULL default '',
         primary key (tävlingNamn, personNr),
-        foreign key (personNr) references spelare(personNr),
+        foreign key (personNr) references spelare(personNr) ON DELETE CASCADE,
         foreign key (tävlingNamn) references tävling(tävlingNamn)
+        ON DELETE CASCADE
         
 	)engine=innodb;
     
@@ -66,8 +69,9 @@ create table har(
 		tävlingNamn varchar(20),
         typ varchar(20),
         primary key (tävlingNamn, typ),
-        foreign key (typ) references regn(typ),
+        foreign key (typ) references regn(typ) ON DELETE CASCADE,
         foreign key (tävlingNamn) references tävling(tävlingNamn)
+        ON DELETE CASCADE
         
 	)engine=innodb;
     
